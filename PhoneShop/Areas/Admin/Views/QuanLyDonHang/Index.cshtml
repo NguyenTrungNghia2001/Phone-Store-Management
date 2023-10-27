@@ -1,0 +1,174 @@
+﻿@model PagedList.IPagedList<PhoneShop.Models.OrderPro>
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Danh sách đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div style="margin: 10px auto; width: 90%;">
+    <h2 style="text-align: center">THÔNG TIN ĐƠN HÀNG</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th >Mã đơn hàng</th>
+                <th>Tình Trạng</th>
+
+                <th>Tên khách hàng</th>
+                <th>Phone</th>
+                <th>Tiền</th>
+                <th>Trạng thái</th>
+                <th>Ngày tạo</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.ID</td>
+                        <td><p style="color:red">@(item.TTrang == false? "ĐƠN HÀNG HUỶ" : "...")</p></td>
+
+                        <td>@item.TenNguoiNhan</td>
+                        <td>@item.DienThoaiNhan</td>
+                        <td>@item.Trigia.Value.ToString("###,###,##0")</td>
+                        <td>@(item.Dagiao == false?"Chờ nhận hàng":"Thành công")</td>
+                        <td>@item.DateOrder.Value.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            @Html.ActionLink("Xem", "HienThiDonHang", new
+                            {
+                                id =
+                           item.ID
+                            }, new { @class = "btn btn-primary" }) |
+                            <a href="#" class="btn btn-sm btn-danger btnCapNhat" data-id="@item.ID">Cập nhật</a> |
+                            <a href="#" class="btn btn-sm btn-danger btnHuy" data-id="@item.ID">Huỷ đơn hàng</a>
+                        </td>
+
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-6"></div>
+        <div class="col-6" style="text-align:right;">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        </div>
+    </div>
+
+
+</div>
+
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Cập nhật trạng thái</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="txtOrderID" value="0" />
+                <div class="form-group">
+                    <label>Trạng thái</label>
+                    <select class="form-control" id="ddTrangThai">
+                        <option value="true">Thành công</option>
+                        <option value="false">Chờ nhận hàng</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal"> đóng</button>
+                <button type="button" class="btn btn-primary btnLuu">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-default2">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Cập nhật Tình Trạng</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="txtOrderID2" value="0" />
+                <div class="form-group">
+                    <label>Tình Trạng</label>
+                    <select class="form-control" id="ddTinhTrang">
+                        <option value="true">...</option>
+                        <option value="false">Huỷ đơn hàng</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal"> đóng</button>
+                <button type="button" class="btn btn-primary btnLuu">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('body').on('click', '.btnCapNhat', function () {
+            var id = $(this).data("id");
+            $('#txtOrderID').val(id);
+            $('#modal-default').modal('show');
+        });
+        $('body').on('click', '.btnLuu', function () {
+            var id = $('#txtOrderID').val();
+            var tt = $('#ddTrangThai').val();
+
+            $.ajax({
+                url: '/admin/QuanLyDonHang/UpdateTT',
+                type: 'POST',
+                data: {
+                    id: id, trangthai: tt
+                },
+                success: function (res) {
+                    if (res.Success) {
+                        location.reload();
+                    }
+                }
+            });
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('body').on('click', '.btnHuy', function () {
+            var id = $(this).data("id");
+            $('#txtOrderID2').val(id);
+            $('#modal-default2').modal('show');
+        });
+        $('body').on('click', '.btnLuu', function () {
+            var id = $('#txtOrderID2').val();
+            var tt = $('#ddTinhTrang').val();
+
+            $.ajax({
+                url: '/admin/QuanLyDonHang/UpdateTTrang',
+                type: 'POST',
+                data: {
+                    id: id, TTrang: tt
+                },
+                success: function (res) {
+                    if (res.Success) {
+                        location.reload();
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+
+

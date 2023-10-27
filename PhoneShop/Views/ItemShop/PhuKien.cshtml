@@ -1,0 +1,25 @@
+﻿@using PhoneShop.Models
+@model IEnumerable<Product>
+@foreach (var product in Model)
+{
+
+    <div class="card col-sm-2 d-flex align-items-stretch book-section" style="margin:5px;">
+
+        <a href="@Url.Action("Details", "ItemShop", new { id = product.ProductID})">
+            <img class="card-img-top book-picture"
+                 src="~/Images/@product.ImagePro" alt="Card image">
+        </a>
+        <div class="card-body" style="text-align: center; margin-bottom: 8px; line-height: 21px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; font-size: 14px; line-height: 20px; overflow: hidden; text-overflow: ellipsis; margin-bottom: 5px; ">
+            <h4 class="card-title">@product.NamePro</h4>
+
+        </div>
+        <div class="card-body" style="color: #d0021c; font-size: 18px; margin-bottom: 8px; text-align: center; ">
+            <p class="card-text">@product.Price.Value.ToString("###,###,##0") VND</p>
+
+        </div>
+
+    </div>
+
+
+}
+

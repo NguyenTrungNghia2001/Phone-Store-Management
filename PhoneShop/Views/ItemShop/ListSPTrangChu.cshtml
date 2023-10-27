@@ -1,0 +1,106 @@
+﻿
+@using PhoneShop.Models
+@model IEnumerable<Product>
+@{
+    ViewBag.Title = "ListSPTrangChu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="header_slide">
+    <div class="header_bottom_left">
+        <div class="categories">
+            <ul>
+                <h3>Categories</h3>
+                @Html.Action("ListCategory", "ItemShop")
+            </ul>
+        </div>
+    </div>
+    <div class="header_bottom_right">
+        <div class="slider">
+            <div id="slider">
+                <div id="mover">
+
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item row active">
+                                <img src="~/Images/THUMB-TGDD--38--640x360-4.png" class="d-block w-100" alt="...">
+
+                            </div>
+                            <div class="carousel-item row">
+                                <img src="~/Images/maxresdefault.jpg" class="d-block w-100" alt="...">
+
+                            </div>
+                            <div class="carousel-item row">
+                                <img style="height: 449.8px;" src="~/Images/Pre-sale-DOOGEE-V20-5G-Rugged-Phone-Rear-Mini-Display-6-43-AMOLED-DotDisplay-20MP-Night.png" class="d-block w-100 " alt="...">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-target="#carouselExampleControls" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-target="#carouselExampleControls" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="clear"></div>
+</div>
+<script src="https://kit.fontawesome.com/a21638dbb4.js" crossorigin="anonymous"></script>
+<div style="background-color:#bcf9f9">
+    <div class="" style="max-width:95%; margin-left: 30px;">
+        <h2 style="color:red; margin-left:10px; font-size:40px">Danh sách sản phẩm Hot <i class="fa-sharp fa-solid fa-fire-flame-curved fa-beat-fade" style="color: red;"></i></h2>
+
+        <div class="row" style="background-color:black;">
+            <div class="col-sm-1"></div>
+            @foreach (var product in Model)
+            {
+
+                <div class="card col-sm-2 d-flex align-items-stretch book-section" style="margin:5px;">
+
+                    <a href="@Url.Action("Details", "ItemShop", new { id = product.ProductID})">
+                        <img class="card-img-top book-picture"
+                             src="~/Images/@product.ImagePro" alt="Card image">
+                    </a>
+                    <div class="card-body" style="text-align: center; margin-bottom: 8px; line-height: 21px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; font-size: 14px; line-height: 20px; overflow: hidden; text-overflow: ellipsis; margin-bottom: 5px; ">
+                        <h4 class="card-title">@product.NamePro</h4>
+
+                    </div>
+                    <div class="card-body" style="color: #d0021c; font-size: 18px; margin-bottom: 8px; text-align: center; ">
+                        <p class="card-text">@product.Price.Value.ToString("###,###,##0") VND</p>
+
+                    </div>
+
+                </div>
+
+
+            }
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+    <div class="" style=" margin-top:20px;max-width:95%; margin-left: 30px;">
+        <h2 style="color: red; margin-left: 10px; font-size: 40px">Tai Nghe đang hot<i class="fa-sharp fa-solid fa-fire-flame-curved fa-beat-fade" style="color: red;"></i></h2>
+
+        <div class="row" style="background-color:black;">
+            <div class="col-sm-1"></div>
+            @Html.Action("PhuKien", "ItemShop");
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+
+    <div class="" style=" margin-top:20px;max-width:95%; margin-left: 30px;">
+        <h2 style="color: red; margin-left: 10px; font-size: 40px">Điện thoại đang hot<i class="fa-sharp fa-solid fa-fire-flame-curved fa-beat-fade" style="color: red;"></i></h2>
+
+        <div class="row" style="background-color:black;">
+            <div class="col-sm-1"></div>
+            @Html.Action("DienThoai", "ItemShop");
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+
+
+</div>

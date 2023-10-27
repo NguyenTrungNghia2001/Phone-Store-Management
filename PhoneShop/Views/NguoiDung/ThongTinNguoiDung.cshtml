@@ -1,0 +1,72 @@
+﻿@model PhoneShop.Models.Customer
+@{
+    ViewBag.Title = "ThongTinCaNhan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using(Html.BeginForm("CapNhatThongTinCaNhan", "NguoiDung", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                @Html.HiddenFor(model => model.IDCus)
+                @Html.HiddenFor(model => model.Birthday)
+                <form>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputSdt">Họ và tên</label>
+                            @Html.EditorFor(model => model.NameCus, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NameCus, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputSdt">Số điện thoại</label>
+                            @Html.EditorFor(model => model.PhoneCus, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PhoneCus, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputUsername">Tên đăng nhập</label>
+                            @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail">Email</label>
+                            @Html.EditorFor(model => model.EmailCus, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-10">
+                            <label for="inputDiaChi">Địa chỉ</label>
+                            @Html.EditorFor(model => model.AddCus, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        @*<div class="form-group col-md-2">
+                    <label for="inputDiemThuong">Điểm thưởng</label>
+                    @Html.EditorFor(model => model.DiemThuong, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                </div>*@
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-12">
+                            <input type="submit" value="Cập nhật" class="btn btn-primary" ></input>
+                        </div>
+                    </div>
+                    @*<button type="submit" class="btn btn-primary">Cập nhật</button>*@
+                </form>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+}
+
+<style>
+    .active-1 {
+        background-color: #CA2620;
+        box-shadow: inset 5px 5px 12px #AA1B1B;
+        transition: all 0.3s ease 0s;
+    }
+</style>

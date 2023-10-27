@@ -1,0 +1,197 @@
+﻿@using PhoneShop.Models
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="~/Content/Mystyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.min.css" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/slider.css" rel="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" src="~/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="~/js/move-top.js"></script>
+    <script type="text/javascript" src="~/js/easing.js"></script>
+    <script type="text/javascript" src="~/js/startstop-slider.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div style="background-color:">
+        <div class="headertop_desc" style="background-color:white">
+            <div class="logo" style=" width: 200px; margin-left: 40px;">
+                <a href="@Url.Action("ListSPTrangChu","ItemShop")"><img src="~/Images/logo-main.jpg" alt="" /></a>
+            </div>
+            <div class="account_desc" style=" margin-top: 50px;">
+                <ul>
+
+                    <li>@Html.Action("GioHangPartial", "GioHang")</li>
+                    <li><a href="#">Checkout</a></li>
+                    @if (Session["TaiKhoan"] == null)
+                    {
+                        <li>
+                            <a href="@Url.Action("DangNhap","NguoiDung")">Đăng nhập</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("DangKy","NguoiDung")">Đăng Ký</a>
+                        </li>
+
+                    }
+                    else
+                    {
+                        var customer = (PhoneShop.Models.Customer)Session["TaiKhoan"];
+                <li>
+                    <div class="dropdown">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                            @customer.NameCus
+                        </a>
+
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="@Url.Action("ThongTinNguoiDung","NguoiDung")">Thông tin</a>
+                            <a class="dropdown-item" href="@Url.Action("LichSuDonHang", "NguoiDung", new {id = customer.IDCus})">Lịch sử đơn hàng</a>
+                            <a class="dropdown-item" href="@Url.Action("Logout","NguoiDung")">Logout</a>
+                        </div>
+                    </div>
+                </li>
+                        
+
+      
+
+                    }
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="wrap" style="background-color:">
+            <div class="header">
+
+                <div class="header_bottom">
+                    <div class="menu">
+                        <ul>
+                            <li class="active"><a href="@Url.Action("ListSPTrangChu","ItemShop")">Home</a></li>
+                            <li><a href="">About</a></li>
+                            <li><a href="">News</a></li>
+                            <li><a href="">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="search">
+                        @using (Html.BeginForm("LayTuKhoaTimKiem", "TimKiem"))
+                        {
+                        <input type="text" name="sTuKhoa" placeholder="Search" style="margin-left:550PX;margin-top:10PX;border-radius:10PX">
+                        <input type="submit" value="Find" style="border-radius: 10PX">
+                        }
+    
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+
+
+
+            @RenderBody();
+        </div>
+        <!-- Footer -->
+        <footer class="text-center text-lg-start bg-light text-muted" style="padding-bottom: -30px; margin-bottom: 0px; background-color:#c7c7c7">
+            <!-- Section: Social media -->
+            <!-- Section: Social media -->
+            <!-- Section: Links  -->
+            <section class="">
+                <div class="container text-center text-md-start mt-5">
+                    <!-- Grid row -->
+                    <div class="row mt-3" style="padding-top:10px; ">
+                        <!-- Grid column -->
+                        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                            <!-- Content -->
+                            <h6 class="text-uppercase fw-bold mb-4">
+                                <i class="fas fa-gem me-3"></i>NHÓM
+                            </h6>
+                            <p style="text-align: justify;">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industrys, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+                            </p>
+                        </div>
+                        <!-- Grid column -->
+                        <!-- Grid column -->
+                        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                            <!-- Links -->
+                            <h6 class="text-uppercase fw-bold mb-4">
+                                Products
+                            </h6>
+                            <p>
+                                <a href="#!" class="text-reset">SAMSUNG</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">IPHONE</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">MACBOOK</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">LAPTOP</a>
+                            </p>
+                        </div>
+                        <!-- Grid column -->
+                        <!-- Grid column -->
+                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                            <!-- Links -->
+                            <h6 class="text-uppercase fw-bold mb-4">
+                                Về Chúng Tôi
+                            </h6>
+                            <p>
+                                <a href="#!" class="text-reset">Chính sách bảo hành</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">Chính sách bảo mật</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">Quy Định Chung</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">Những câu hỏi thường gặp</a>
+                            </p>
+                        </div>
+                        <!-- Grid column -->
+                        <!-- Grid column -->
+                        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                            <!-- Links -->
+                            <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                            <p>
+                                <i class="fas fa-home me-3"></i> HUFLIT CAMPUS
+                            </p>
+                            <p>
+                                <i class="fas fa-envelope me-3"></i>
+                                Huflit@gmail.com
+                            </p>
+                            <p>
+                                <i class="fas fa-phone me-3"></i> (+84) 12345678
+                            </p>
+                            <p>
+                                <i class="fas fa-print me-3"></i> (+84) 12345678
+                            </p>
+                        </div>
+                        <!-- Grid column -->
+                    </div>
+                    <!-- Grid row -->
+                </div>
+            </section>
+            <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
+                <a class="text-reset fw-bold" href="">Nhóm</a>
+            </div>
+            <!-- Section: Links  -->
+        </footer>
+
+        <!-- Footer -->
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </div>
+</body>
+</html>

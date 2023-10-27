@@ -1,0 +1,11 @@
+﻿@using PhoneShop.Models
+@model IEnumerable<Category>
+
+@foreach (var category in Model)
+{
+    <li>
+        <a href="@Url.Action("ProductCategory", "ItemShop", new { id = category.Id })"style="color:black;">
+            @category.NameCate
+        </a>
+    </li>
+}
